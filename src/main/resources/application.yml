@@ -1,3 +1,19 @@
+# changing the server port
+server:
+  port: 3001
+
 spring:
   application:
     name: BookMyBus
+  datasource: # db specific properties
+    url: jdbc:mysql://localhost:3306/tripDB
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: password
+  jpa: # ORM software specific properties
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
