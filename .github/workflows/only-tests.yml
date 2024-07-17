@@ -3,8 +3,7 @@ on:
   push:
     branches:
       - main
-    branches-ignore:
-      - master
+
 jobs:
   run-all-tests:
     runs-on: self-hosted
