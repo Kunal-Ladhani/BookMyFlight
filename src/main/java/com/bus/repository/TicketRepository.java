@@ -9,9 +9,5 @@ import java.util.List;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {
-
 	List<Ticket> findByPackages(Packages packages);
-
-	//public List<Ticket> findByRouteId(Integer routeId);
-
 }

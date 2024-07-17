@@ -13,7 +13,10 @@ public class CurrentUserLoginSession {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer Id;
+
 	private Integer userId;
+
 	private String authKey;
+
 	private LocalDateTime sessionStartTime;
 }

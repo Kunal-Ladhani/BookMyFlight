@@ -22,10 +22,8 @@ public class Travel {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer travelId;
 
-	//	@Size(min=3,max=9,message="length should be atleast 3 character")
 	private String travelName;
 
-	//	@Size(min=3,max=10,message="{name.invalid}")
 	private String agentName;
 
 	@Embedded

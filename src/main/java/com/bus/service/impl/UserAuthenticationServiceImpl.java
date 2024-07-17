@@ -3,9 +3,9 @@ package com.bus.service.impl;
 import com.bus.exception.InvalidCredentialException;
 import com.bus.exception.UserAlreadyExistsException;
 import com.bus.model.CurrentUserLoginSession;
-import com.bus.model.SessionDTO;
+import com.bus.dto.SessionDTO;
 import com.bus.model.User;
-import com.bus.model.UserDTO;
+import com.bus.dto.UserDTO;
 import com.bus.repository.SessionRepository;
 import com.bus.repository.UserRepository;
 import com.bus.service.UserAuthenticationService;
@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @Service
 @Transactional
-public class UserAuthenticationServiceProvider implements UserAuthenticationService {
+public class UserAuthenticationServiceImpl implements UserAuthenticationService {
 
 	@Autowired
 	UserRepository userRepo;

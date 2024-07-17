@@ -1,4 +1,4 @@
-package com.bus.model;
+package com.bus.dto;
 
 import lombok.Getter;
 import lombok.Setter;

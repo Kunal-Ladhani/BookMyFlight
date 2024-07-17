@@ -16,7 +16,7 @@ import com.bus.repository.SessionRepository;
 import com.bus.repository.UserRepository;
 
 @Service
-public class PackageServiceProvider implements PackageService {
+public class PackageServiceImpl implements PackageService {
 	@Autowired
 	PackageRepository pkgRepo;
 	

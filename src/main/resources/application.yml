@@ -17,3 +17,8 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+bookMyBus:
+  openapi:
+    dev-url: http://localhost:8080
+    prod-url: https://bezkoder-api.com

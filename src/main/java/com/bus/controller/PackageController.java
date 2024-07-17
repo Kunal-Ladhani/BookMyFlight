@@ -2,7 +2,7 @@ package com.bus.controller;
 
 import com.bus.exception.PackageException;
 import com.bus.model.Packages;
-import com.bus.service.impl.PackageServiceProvider;
+import com.bus.service.impl.PackageServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import java.util.List;
 public class PackageController {
 
 	@Autowired
-	PackageServiceProvider pkgService;
+	PackageServiceImpl pkgService;
 
 	@GetMapping("")
 	public ResponseEntity<List<Packages>> getAllPackages() throws PackageException {

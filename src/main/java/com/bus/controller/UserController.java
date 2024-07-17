@@ -2,10 +2,10 @@ package com.bus.controller;
 
 import com.bus.exception.InvalidCredentialException;
 import com.bus.exception.UserAlreadyExistsException;
-import com.bus.model.MessageDTO;
-import com.bus.model.SessionDTO;
+import com.bus.dto.MessageDTO;
+import com.bus.dto.SessionDTO;
 import com.bus.model.User;
-import com.bus.model.UserDTO;
+import com.bus.dto.UserDTO;
 import com.bus.service.UserAuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

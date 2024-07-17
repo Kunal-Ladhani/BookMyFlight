@@ -1,6 +1,7 @@
 package com.bus.model;
 
 
+import com.bus.enums.BusType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;

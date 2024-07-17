@@ -1,4 +1,4 @@
-package com.bus.model;
+package com.bus.enums;
 
 public enum PackageType {
 	BASE,

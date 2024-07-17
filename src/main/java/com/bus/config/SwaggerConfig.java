@@ -1,38 +1,44 @@
 package com.bus.config;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.servers.Server;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
 
-import java.util.Collections;
+import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
 
+	@Value("${bookMyBus.openapi.dev-url}")
+	private String devUrl;
+
+	@Value("${bookMyBus.openapi.prod-url}")
+	private String prodUrl;
+
 	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.apiInfo(getInfo())
-				.select()
-				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any())
-				.build();
+	public OpenAPI myOpenAPI() {
+		Server devServer = new Server();
+		devServer.setUrl(devUrl);
+		devServer.setDescription("Server URL in Development environment");
 
-	}
+		Server prodServer = new Server();
+		prodServer.setUrl(prodUrl);
+		prodServer.setDescription("Server URL in Production environment");
 
-	private ApiInfo getInfo() {
-		return new ApiInfo("BookMyBus REST APIs",
-				"REST API for BookMyBus - a Trip Management System created using Java, Spring Boot, Hibernate, Maven for my capstone project.",
-				"1.0",
-				"",
-				new Contact("Kunal Ladhani", "https://kunal-ladhani.github.io/", "k.ladhani1@gmail.com"),
-				"",
-				"",
-				Collections.EMPTY_LIST);
+		Contact contact = new Contact();
+		contact.setEmail("bookMyBus@gmail.com");
+		contact.setName("bookMyBus");
+		contact.setUrl("https://www.bookMyBus.com");
+
+		License mitLicense = new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
+
+		Info info = new Info().title("Tutorial Management API").version("1.0").contact(contact).description("This service exposes REST API endpoints to manage BookMyBus.").termsOfService("https://www.bookMyBus.com/terms").license(mitLicense);
+
+		return new OpenAPI().info(info).servers(List.of(devServer, prodServer));
 	}
 }

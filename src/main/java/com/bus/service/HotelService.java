@@ -6,13 +6,9 @@ import com.bus.model.Hotel;
 
 
 public interface HotelService {
-	
 	Hotel addHotel(Integer packageId, Hotel hotel, String authKey) throws HotelException;
 	
 	Hotel deleteHotel(Integer hotelId, String authKey) throws HotelException;
 	
 	Hotel updateHotel(Hotel hotel, String authKey) throws HotelException;
-	
-	
-
 }

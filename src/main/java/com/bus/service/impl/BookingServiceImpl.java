@@ -31,9 +31,6 @@ public class BookingServiceImpl implements BookingService {
 	@Autowired
 	UserRepository userRepo;
 
-	/*
-	 * Need get/setBookings
-	 */
 	@Override
 	public Booking makeBooking(Booking bookings, Integer pkgId) throws BookingException {
 		Optional<Packages> packagesOpt = pkgRepo.findById(pkgId);
@@ -53,10 +50,9 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public Booking cancelBooking(Integer bookingsId) throws BookingException {
-		Booking booking = null;
 		Optional<Booking> book = bookRepo.findById(bookingsId);
 		if (book.isPresent()) {
-			booking = book.get();
+			var booking = book.get();
 			List<User> users = booking.getUsers();
 			for (User user : users) {
 				user.getBookings().remove(booking);
@@ -78,10 +74,9 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public List<Booking> viewBookings(Integer userId) throws BookingException {
-		User user = null;
 		Optional<User> userOpt = userRepo.findById(userId);
 		if (userOpt.isPresent()) {
-			user = userOpt.get();
+			var user = userOpt.get();
 			List<Booking> bookings = user.getBookings();
 			if (bookings.isEmpty()) {
 				throw new BookingException("No booking exists..");
@@ -96,13 +91,20 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public List<Booking> viewAllBookings(String authKey) throws BookingException {
-		Optional<CurrentUserLoginSession> currUser = sessionRepo.findByAuthkey(authKey);
-		String userType = userRepo.findById(currUser.get().getUserId()).get().getUserType();
-		List<Booking> bookings = null;
+		Optional<CurrentUserLoginSession> currentUserLoginSessionOptional = sessionRepo.findByAuthkey(authKey);
+		if (currentUserLoginSessionOptional.isEmpty()) {
+			throw new BookingException("User session does not exist.");
+		}
+		var currentUserId = currentUserLoginSessionOptional.get().getUserId();
+		Optional<User> currentUser = userRepo.findById(currentUserId);
+		if (currentUser.isEmpty()) {
+			throw new BookingException("User does not exist.");
+		}
+		var userType = currentUser.get().getUserType();
 		if (userType.equalsIgnoreCase("user")) {
 			throw new BookingException("Unauthorized Request...");
 		} else {
-			bookings = bookRepo.findAll();
+			List<Booking> bookings = bookRepo.findAll();
 			if (bookings.isEmpty()) {
 				throw new BookingException("No bookings available...");
 			} else {
@@ -110,6 +112,4 @@ public class BookingServiceImpl implements BookingService {
 			}
 		}
 	}
-
-
 }

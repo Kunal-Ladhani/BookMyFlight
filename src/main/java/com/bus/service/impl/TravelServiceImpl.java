@@ -18,7 +18,7 @@ import com.bus.repository.TravelRepository;
 import com.bus.repository.UserRepository;
 
 @Service
-public class TravelServiceImplementation implements TravelService {
+public class TravelServiceImpl implements TravelService {
 
 	@Autowired
 	private TravelRepository tDao;

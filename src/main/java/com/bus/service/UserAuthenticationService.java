@@ -2,9 +2,9 @@ package com.bus.service;
 
 import com.bus.exception.InvalidCredentialException;
 import com.bus.exception.UserAlreadyExistsException;
-import com.bus.model.SessionDTO;
+import com.bus.dto.SessionDTO;
 import com.bus.model.User;
-import com.bus.model.UserDTO;
+import com.bus.dto.UserDTO;
 
 public interface UserAuthenticationService {
 

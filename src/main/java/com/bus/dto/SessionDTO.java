@@ -1,4 +1,4 @@
-package com.bus.model;
+package com.bus.dto;
 
 import java.time.LocalDateTime;
 
