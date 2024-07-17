@@ -9,7 +9,7 @@ import com.bus.model.UserDTO;
 import com.bus.repository.SessionRepository;
 import com.bus.repository.UserRepository;
 import com.bus.service.UserAuthenticationService;
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
