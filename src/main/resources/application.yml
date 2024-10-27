@@ -4,7 +4,7 @@ server:
 
 spring:
   application:
-    name: BookMyBus
+    name: BookMyFlight
   datasource: # db specific properties
     url: jdbc:mysql://localhost:3306/tripDB
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -17,8 +17,18 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  docker:
+    compose:
+      enabled: true
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+#    mongodb:
+#      uri: mongodb://user:password@mongodb:27017/tripDB
+
 
 bookMyBus:
   openapi:
-    dev-url: http://localhost:8080
-    prod-url: https://bezkoder-api.com
+    dev-url: http://localhost:3000
+    prod-url: https://bookMyBus-api.com
