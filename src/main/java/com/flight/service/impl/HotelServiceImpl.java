@@ -46,7 +46,7 @@ public class HotelServiceImpl implements HotelService {
 
 				Optional<Packages> optPackage = packageRepository.findById(packageId);
 				if (!optPackage.isPresent()) {
-					throw new HotelException("Package with given pakcage Id does not exist");
+					throw new HotelException("Package with given package Id does not exist");
 				}
 				Packages packages = optPackage.get();
 
