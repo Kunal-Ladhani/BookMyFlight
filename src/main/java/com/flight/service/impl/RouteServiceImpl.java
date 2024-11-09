@@ -50,7 +50,7 @@ public class RouteServiceImpl implements RouteService {
 		
 		Optional<CurrentUserLoginSession> culs = sessionRepo.findByAuthkey(authKey);
 		
-		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType();
+		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType().toString();
 		
 		Optional<Route> optRoute = routeRepo.findById(route.getRouteId());
 		
@@ -88,7 +88,7 @@ public class RouteServiceImpl implements RouteService {
 		
 		Optional<CurrentUserLoginSession> culs = sessionRepo.findByAuthkey(authKey);
 		
-		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType();
+		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType().toString();
 		
 		Optional<Route> optRoute = routeRepo.findById(route.getRouteId());
 		
@@ -115,7 +115,7 @@ public class RouteServiceImpl implements RouteService {
 		
 		Optional<CurrentUserLoginSession> culs = sessionRepo.findByAuthkey(authKey);
 		
-		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType();
+		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType().toString();
 		
 		Optional<Route> optRoute = routeRepo.findById(routeId);
 		

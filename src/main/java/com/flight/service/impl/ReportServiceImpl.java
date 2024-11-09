@@ -33,7 +33,7 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public Report addReport(Report report, String authKey) throws ReportException {
 		Optional<CurrentUserLoginSession> curUser = sessionRepo.findByAuthkey(authKey);
-		String userType = userRepo.findById(curUser.get().getUserId()).get().getUserType();
+		String userType = userRepo.findById(curUser.get().getUserId()).get().getUserType().toString();
 		if(userType.equalsIgnoreCase("user")) {
 			throw new ReportException("Unauthorized Request...");
 		}
@@ -45,7 +45,7 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public Report deleteReport(Integer reportId, String authKey) throws ReportException {
 		Optional<CurrentUserLoginSession> curUser = sessionRepo.findByAuthkey(authKey);
-		String userType = userRepo.findById(curUser.get().getUserId()).get().getUserType();
+		String userType = userRepo.findById(curUser.get().getUserId()).get().getUserType().toString();
 		if(userType.equalsIgnoreCase("user")) {
 			throw new ReportException("Unauthorized Request...");
 		}
@@ -61,7 +61,7 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public List<Report> viewAllReports(String authKey) throws ReportException {
 		Optional<CurrentUserLoginSession> curUser = sessionRepo.findByAuthkey(authKey);
-		String userType = userRepo.findById(curUser.get().getUserId()).get().getUserType();
+		String userType = userRepo.findById(curUser.get().getUserId()).get().getUserType().toString();
 		if(userType.equalsIgnoreCase("user")) {
 			throw new ReportException("Unauthorized Request...");
 		}

@@ -1,5 +1,6 @@
 package com.flight.model;
 
+import com.flight.dto.Address;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

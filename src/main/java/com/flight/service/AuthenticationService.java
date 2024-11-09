@@ -1,5 +1,7 @@
 package com.flight.service;
 
+import com.flight.dto.request.SignUpRequestDto;
+import com.flight.dto.response.SignUpResponseDto;
 import com.flight.exception.InvalidCredentialException;
 import com.flight.exception.UserAlreadyExistsException;
 import com.flight.dto.SessionDTO;
@@ -8,7 +10,7 @@ import com.flight.dto.UserDTO;
 
 public interface AuthenticationService {
 
-	User userSignUp(User user) throws UserAlreadyExistsException;
+	SignUpResponseDto userSignUp(SignUpRequestDto signUpRequestDto) throws Exception;
 
 	SessionDTO userLogin(UserDTO user) throws InvalidCredentialException;
 

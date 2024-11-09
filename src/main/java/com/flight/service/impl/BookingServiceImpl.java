@@ -1,5 +1,6 @@
 package com.flight.service.impl;
 
+import com.flight.enums.UserType;
 import com.flight.exception.BookingException;
 import com.flight.model.Booking;
 import com.flight.model.CurrentUserLoginSession;
@@ -38,7 +39,7 @@ public class BookingServiceImpl implements BookingService {
 		if (packagesOpt.isPresent()) {
 			List<User> users = bookings.getUsers();
 			for (User user : users) {
-				user.getBookings().add(bookings);
+//				user.getBookings().add(bookings);
 			}
 			bookings.setPackages(packagesOpt.get());
 			return bookRepo.save(bookings);
@@ -55,7 +56,7 @@ public class BookingServiceImpl implements BookingService {
 			var booking = book.get();
 			List<User> users = booking.getUsers();
 			for (User user : users) {
-				user.getBookings().remove(booking);
+//				user.getBookings().remove(booking);
 			}
 			bookRepo.delete(booking);
 			return booking;
@@ -77,11 +78,12 @@ public class BookingServiceImpl implements BookingService {
 		Optional<User> userOpt = userRepo.findById(userId);
 		if (userOpt.isPresent()) {
 			var user = userOpt.get();
-			List<Booking> bookings = user.getBookings();
-			if (bookings.isEmpty()) {
-				throw new BookingException("No booking exists..");
-			}
-			return bookings;
+//			List<Booking> bookings = user.getBookings();
+//			if (bookings.isEmpty()) {
+//				throw new BookingException("No booking exists..");
+//			}
+//			return bookings;
+			return null;
 		} else {
 			throw new BookingException("No user exists..");
 		}
@@ -101,7 +103,7 @@ public class BookingServiceImpl implements BookingService {
 			throw new BookingException("User does not exist.");
 		}
 		var userType = currentUser.get().getUserType();
-		if (userType.equalsIgnoreCase("user")) {
+		if (userType.equals(UserType.CUSTOMER)) {
 			throw new BookingException("Unauthorized Request...");
 		} else {
 			List<Booking> bookings = bookRepo.findAll();

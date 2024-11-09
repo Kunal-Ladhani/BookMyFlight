@@ -3,6 +3,7 @@ package com.flight.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import com.flight.enums.UserType;
 import com.flight.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,9 +33,9 @@ public class PackageServiceImpl implements PackageService {
 		if(!culs.isPresent()) {
 			throw new PackageException("Invalid Authentication Key");
 		}
-		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType();
+		UserType userType = userRepo.findById(culs.get().getUserId()).get().getUserType();
 		Optional<Packages> user = pkgRepo.findById(culs.get().getUserId());
-		if(userType.equalsIgnoreCase("user")) {
+		if(userType.equals(UserType.CUSTOMER)) {
 			throw new PackageException("Unauthorized Request...");
 		}
 		else if(user.isPresent()) {
@@ -56,9 +57,9 @@ public class PackageServiceImpl implements PackageService {
 		if(!culs.isPresent()) {
 			throw new PackageException("Invalid Authentication Key");
 		}
-		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType();
+		UserType userType = userRepo.findById(culs.get().getUserId()).get().getUserType();
 		
-		if(userType.equalsIgnoreCase("user")) {
+		if(userType.equals(UserType.CUSTOMER)) {
 			throw new PackageException("Unauthorized Request...");
 		}
 		Optional<Packages> getPkg = pkgRepo.findById(pkg.getPackageId());
@@ -85,9 +86,9 @@ public class PackageServiceImpl implements PackageService {
 		if(!culs.isPresent()) {
 			throw new PackageException("Invalid Authentication Key");
 		}
-		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType();
+		UserType userType = userRepo.findById(culs.get().getUserId()).get().getUserType();
 		
-		if(userType.equalsIgnoreCase("user")) {
+		if(userType.equals(UserType.CUSTOMER)) {
 			throw new PackageException("Unauthorized Request...");
 		}
 		Optional<Packages> pkg =  pkgRepo.findById(pkgId);

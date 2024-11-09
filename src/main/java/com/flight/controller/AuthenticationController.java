@@ -1,70 +1,93 @@
 package com.flight.controller;
 
 import com.flight.dto.MessageDTO;
+import com.flight.dto.ProductDto;
 import com.flight.dto.SessionDTO;
 import com.flight.dto.UserDTO;
+import com.flight.dto.request.SignUpRequestDto;
+import com.flight.dto.response.SignUpResponseDto;
 import com.flight.exception.InvalidCredentialException;
 import com.flight.exception.UserAlreadyExistsException;
 import com.flight.model.User;
 import com.flight.service.AuthenticationService;
+import com.flight.utils.HttpUtils;
 import jakarta.validation.Valid;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.Objects;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/auth")
 @CrossOrigin(origins = "*")
 public class AuthenticationController {
 
-	@Autowired
-	private AuthenticationService authenticationService;
+  @Autowired
+  private AuthenticationService authenticationService;
 
-	@PostMapping(value = "/signup")
-	public ResponseEntity<MessageDTO> userSignUp(@Valid @RequestBody User user) throws UserAlreadyExistsException {
-		User signedUpUser = authenticationService.userSignUp(user);
-		MessageDTO message = new MessageDTO();
-		if (Objects.nonNull(signedUpUser)) {
-			message.setMessage("Registered Successfully");
-			message.setTimestamp(LocalDateTime.now());
-		}
-		return new ResponseEntity<>(message, HttpStatus.CREATED);
-	}
+  @Autowired
+  private HttpUtils httpUtils;
 
-	@PostMapping("/login")
-	public ResponseEntity<SessionDTO> userSignIn(@Valid @RequestBody UserDTO user) throws UserAlreadyExistsException, InvalidCredentialException {
-		SessionDTO sdt = authenticationService.userLogin(user);
-		return new ResponseEntity<>(sdt, HttpStatus.OK);
-	}
+  @PostMapping(value = "/sign-up", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<SignUpResponseDto> userSignUp(
+      @Valid @RequestBody SignUpRequestDto signUpRequestDto) throws Exception {
+    return new ResponseEntity<>(authenticationService.userSignUp(signUpRequestDto),
+        HttpStatus.CREATED);
+  }
 
-	@PostMapping("/logout")
-	public ResponseEntity<MessageDTO> userLogout(@RequestParam(value = "key") String authKey) throws InvalidCredentialException {
-		MessageDTO message = new MessageDTO();
-		String msg = authenticationService.userLogout(authKey);
-		message.setMessage(msg);
-		message.setTimestamp(LocalDateTime.now());
-		return new ResponseEntity<>(message, HttpStatus.OK);
-	}
+  @PostMapping("/login")
+  public ResponseEntity<SessionDTO> userSignIn(@Valid @RequestBody UserDTO user)
+      throws UserAlreadyExistsException, InvalidCredentialException {
+    SessionDTO sdt = authenticationService.userLogin(user);
+    return new ResponseEntity<>(sdt, HttpStatus.OK);
+  }
 
-	@PutMapping("/profile")
-	public ResponseEntity<String> updateUser(@Valid @RequestBody User user) throws InvalidCredentialException {
-		authenticationService.updateUser(user);
-		return new ResponseEntity<>("User updated successfully...", HttpStatus.ACCEPTED);
-	}
+  @PostMapping("/logout")
+  public ResponseEntity<MessageDTO> userLogout(@RequestParam(value = "key") String authKey)
+      throws InvalidCredentialException {
+    MessageDTO message = new MessageDTO();
+    String msg = authenticationService.userLogout(authKey);
+    message.setMessage(msg);
+    message.setTimestamp(LocalDateTime.now());
+    return new ResponseEntity<>(message, HttpStatus.OK);
+  }
 
-	@DeleteMapping("/delete")
-	public ResponseEntity<User> deleteUser(@RequestParam Integer userid, @RequestParam String authKey) throws InvalidCredentialException {
-		User u = authenticationService.deleteUser(userid, authKey);
-		return new ResponseEntity<>(u, HttpStatus.OK);
-	}
+  @PutMapping("/profile")
+  public ResponseEntity<String> updateUser(@Valid @RequestBody User user)
+      throws InvalidCredentialException {
+    authenticationService.updateUser(user);
+    return new ResponseEntity<>("User updated successfully...", HttpStatus.ACCEPTED);
+  }
 
-	@PostMapping("/appoint")
-	public ResponseEntity<User> appointNewAdmin(@RequestParam("email") String email, @RequestParam("code") String passcode) throws InvalidCredentialException {
-		User user = authenticationService.makeUserAdmin(email, passcode);
-		return new ResponseEntity<>(user, HttpStatus.OK);
-	}
+  @DeleteMapping("/delete")
+  public ResponseEntity<User> deleteUser(@RequestParam Integer userid, @RequestParam String authKey)
+      throws InvalidCredentialException {
+    User u = authenticationService.deleteUser(userid, authKey);
+    return new ResponseEntity<>(u, HttpStatus.OK);
+  }
+
+  @PostMapping("/appoint")
+  public ResponseEntity<User> appointNewAdmin(@RequestParam("email") String email,
+      @RequestParam("code") String passcode) throws InvalidCredentialException {
+    User user = authenticationService.makeUserAdmin(email, passcode);
+    return new ResponseEntity<>(user, HttpStatus.OK);
+  }
+
+  @GetMapping("/test/{id}")
+  public ResponseEntity<ProductDto> test(@PathVariable("id") String productId) {
+    ResponseEntity<ProductDto> response = httpUtils.get(
+        "https://fakestoreapi.com/products/" + productId, null, null, ProductDto.class);
+    return ResponseEntity.ok(response.getBody());
+  }
 }
