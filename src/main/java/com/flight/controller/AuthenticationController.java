@@ -44,7 +44,7 @@ public class AuthenticationController {
         return new ResponseEntity<>(sdt, HttpStatus.OK);
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/log-out")
     public ResponseEntity<MessageDTO> userLogout(@RequestParam(value = "key") String authKey)
             throws InvalidCredentialException {
         MessageDTO message = new MessageDTO();
