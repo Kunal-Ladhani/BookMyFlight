@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main 
+			- feature/*
       # Trigger the workflow on pushes to the main branch
   pull_request:
     branches:
@@ -15,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+			- name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
@@ -25,14 +26,14 @@ jobs:
           distribution: 'temurin' 
           # Use Temurin distribution for JDK
 			
-			- name: Test
+     	- name: Test
         run: ./mvnw clean test
 
       - name: Build
         run: ./mvnw clean install
 
-	 		- name: Package
-				run: mvn clean package --file pom.xml
+			- name: Package
+	 				run: mvn clean package --file pom.xml
 
       # - name: Build Docker image
         # run: docker build -t book-my-flight-latest .
