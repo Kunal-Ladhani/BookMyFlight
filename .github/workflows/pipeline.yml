@@ -25,15 +25,15 @@ jobs:
         java-version: '17'
         distribution: 'temurin' 
         # Use Temurin distribution for JDK
-			
+	
     - name: Test
       run: ./mvnw clean test
-
+      
     - name: Build
       run: ./mvnw clean install
-    
+      
     - name: Package
       run: mvn clean package --file pom.xml
-
+      
     # - name: Build Docker image
       # run: docker build -t book-my-flight-latest .
