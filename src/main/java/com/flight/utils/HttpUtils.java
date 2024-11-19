@@ -65,4 +65,3 @@ public class HttpUtils {
 		return exchange(url, HttpMethod.PATCH, headers, params, body, responseType);
 	}
 }
-
