@@ -71,11 +71,12 @@ public class FeedbackServiceImpl implements FeedbackService {
 			throw new FeedbackException("No user present with the given customer Id");
 		}
 		User userRequired = userOptional.get();
-		List<Feedback> list = userRequired.getFeedbacks();
-		if (list.isEmpty()) {
-			throw new FeedbackException("No feedbacks made by the customer");
-		}
-		return list;
+//		List<Feedback> list = userRequired.getFeedbacks();
+//		if (list.isEmpty()) {
+//			throw new FeedbackException("No feedbacks made by the customer");
+//		}
+//		return list;
+		return null;
 	}
 
 	@Override

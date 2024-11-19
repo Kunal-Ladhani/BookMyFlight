@@ -47,7 +47,7 @@ public class TicketServiceImpl implements TicketService {
 		
 		Optional<CurrentUserLoginSession> culs = sessionRepo.findByAuthkey(authKey);
 		
-		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType();
+		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType().toString();
 				
 		// CHECK IF API CALLER IS VALID USER		
 		if(!userType.equalsIgnoreCase("user") && !userType.equalsIgnoreCase("admin")) {
@@ -82,7 +82,7 @@ public class TicketServiceImpl implements TicketService {
 		// CHECK IF API CALLER IS VALID USER
 		Optional<CurrentUserLoginSession> culs = sessionRepo.findByAuthkey(authKey);
 		
-		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType();
+		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType().toString().toString();
 		
 		if(!userType.equalsIgnoreCase("user") && !userType.equalsIgnoreCase("admin")) {
 			throw new AccessDeniedException("Access Denied");		
@@ -107,7 +107,7 @@ public class TicketServiceImpl implements TicketService {
 		// CHECK IF API CALLER IS VALID USER
 		Optional<CurrentUserLoginSession> culs = sessionRepo.findByAuthkey(authKey);
 		
-		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType();
+		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType().toString().toString();
 		
 		if(!userType.equalsIgnoreCase("user") && !userType.equalsIgnoreCase("admin")) {
 			throw new AccessDeniedException("Access Denied");		
@@ -137,7 +137,7 @@ public class TicketServiceImpl implements TicketService {
 		// CHECK IF API CALLER IS VALID USER
 		Optional<CurrentUserLoginSession> culs = sessionRepo.findByAuthkey(authKey);
 		
-		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType();
+		String userType = userRepo.findById(culs.get().getUserId()).get().getUserType().toString();
 		
 		if(!userType.equalsIgnoreCase("user") && !userType.equalsIgnoreCase("admin")) {
 			throw new AccessDeniedException("Access Denied");		

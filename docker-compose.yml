@@ -1,5 +1,4 @@
 services:
-  # MySQL Service
   mysql-db:
     image: mysql:8.0
     container_name: mysql-db
@@ -7,30 +6,14 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: tripDB
     ports:
-      - "3306:3306" # Expose MySQL on localhost for external access
+      - "3307:3306"
     volumes:
-      - mysql_data:/var/lib/mysql # Persist MySQL data
+      - mysql_data:/var/lib/mysql
 
-#  redis:
-#    image: redis:latest  # Use the latest Redis image
-#    ports:
-#      - "6379:6379"  # Expose Redis port for external access
-
-#  mongodb:
-#    image: mongo:6.0
-#    environment:
-#      MONGO_INITDB_ROOT_USERNAME: user
-#      MONGO_INITDB_ROOT_PASSWORD: password
-#    ports:
-#      - "27017:27017"
-#    volumes:
-#      - mongo-data:/data/db
-
-  # Spring Boot Application
   book-my-flight-app:
     build:
       context: .
-      dockerfile: Dockerfile # Assumes Dockerfile for the Spring Boot app is in the same directory
+      dockerfile: Dockerfile
     container_name: book-my-flight-app
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/tripDB
@@ -38,15 +21,10 @@ services:
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_APPLICATION_NAME: BookMyFlight
       SERVER_PORT: 3001
-#      SPRING_REDIS_HOST: redis  # Update to use redis service
-#      SPRING_REDIS_PORT: 6379
     ports:
-      - "3001:3001" # Maps the Spring Boot app's port to localhost
+      - "3001:3001"
     depends_on:
       - mysql-db
-#      - redis
 
-# Define a volume for MySQL data persistence
 volumes:
   mysql_data:
-#  mongo-data:

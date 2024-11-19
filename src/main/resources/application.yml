@@ -19,7 +19,7 @@ spring:
       matching-strategy: ant_path_matcher
   docker:
     compose:
-      enabled: false
+      enabled: true
 #  data:
 #    redis:
 #      host: localhost
