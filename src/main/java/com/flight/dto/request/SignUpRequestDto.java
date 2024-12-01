@@ -4,10 +4,12 @@ import com.flight.dto.Address;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class SignUpRequestDto {
@@ -24,7 +26,7 @@ public class SignUpRequestDto {
 	@Email(message = "Invalid Email Address.")
 	private String email;
 
-	@Pattern(regexp = "[A-Za-z0-9@]{6,15}", message = "Password must be 6 to 15 characters and must have at least 1 alphabate and 1 number")
+	@Pattern(regexp = "[A-Za-z0-9@]{6,15}", message = "Password must be 6 to 15 characters and must have at least 1 alphabet and 1 number")
 	@NotNull
 	@NotBlank
 	@NotEmpty

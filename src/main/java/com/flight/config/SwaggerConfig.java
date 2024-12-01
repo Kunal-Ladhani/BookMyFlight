@@ -14,10 +14,10 @@ import java.util.List;
 @Configuration
 public class SwaggerConfig {
 
-	@Value("${bookMyBus.openapi.dev-url}")
+	@Value("${bookMyFlight.openapi.dev-url}")
 	private String devUrl;
 
-	@Value("${bookMyBus.openapi.prod-url}")
+	@Value("${bookMyFlight.openapi.prod-url}")
 	private String prodUrl;
 
 	@Bean
@@ -31,20 +31,19 @@ public class SwaggerConfig {
 		prodServer.setDescription("Server URL in Production environment");
 
 		Contact contact = new Contact();
-		contact.setEmail("bookMyBus@gmail.com");
-		contact.setName("bookMyBus");
-		contact.setUrl("https://www.bookMyBus.com");
+		contact.setEmail("bookMyFlight@gmail.com");
+		contact.setName("bookMyFlight");
+		contact.setUrl("https://www.bookMyFlight.com");
 
 		License mitLicense = new License()
 				.name("MIT License")
 				.url("https://choosealicense.com/licenses/mit/");
 
 		Info info = new Info()
-				.title("Tutorial Management API")
+				.title("bookMyFlight APIs")
 				.version("1.0")
 				.contact(contact)
-				.description("This service exposes REST API endpoints to manage BookMyBus.")
-				.termsOfService("https://www.bookMyBus.com/terms")
+				.description("This service exposes REST API endpoints to manage BookMyFlight application.")
 				.license(mitLicense);
 
 		return new OpenAPI()

@@ -5,6 +5,7 @@ import com.flight.dto.SessionDTO;
 import com.flight.dto.UserDTO;
 import com.flight.dto.request.SignUpRequestDto;
 import com.flight.dto.response.SignUpResponseDto;
+import com.flight.enums.UserType;
 import com.flight.exception.InvalidCredentialException;
 import com.flight.exception.UserAlreadyExistsException;
 import com.flight.model.User;
@@ -57,6 +58,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 				.email(signUpRequestDto.getEmail())
 				.mobileNumber(signUpRequestDto.getMobileNumber())
 				.address(signUpRequestDto.getAddress())
+				.userType(UserType.CUSTOMER)
 				.passwordHash(hashedPassword)
 				.build();
 
