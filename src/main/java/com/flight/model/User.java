@@ -3,57 +3,52 @@ package com.flight.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.flight.dto.Address;
 import com.flight.enums.UserType;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "user")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer userId;
+	@Column(name = "user_id")
+	private Long id;
 
+	@Column(nullable = false)
 	private String name;
 
+	@Column(name = "mobile_number", nullable = false)
 	private String mobileNumber;
 
 	@Embedded
+	@NotNull
 	private Address address;
 
 	@JsonIgnore
 	@Enumerated(EnumType.STRING)
+	@Column(name = "user_type", nullable = false)
 	private UserType userType;
 
-	private String email;
+	@Column(name = "email_hash", nullable = false)
+	private String emailHash;
 
+	@Column(name = "password_hash", nullable = false)
 	private String passwordHash;
 
 	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL)
-	private List<Booking> bookings = new ArrayList<>();
+	@Embedded
+	private AbstractAuditEntity abstractAuditEntity;
 
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-	private List<Feedback> feedbacks = new ArrayList<>();
+	@OneToOne(mappedBy = "user", targetEntity = Session.class)
+	private Session session;
+
 }

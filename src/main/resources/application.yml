@@ -4,23 +4,34 @@ server:
 spring:
   profiles:
     active: dev
+
   application:
     name: BookMyFlight
+
   datasource:
     url: jdbc:mysql://localhost:3306/tripDB
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: password
+
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
+
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
   docker:
     compose:
       enabled: false
+
+security:
+  password:
+    key_length: 256
+    iteration_count: 65536
+    hashing_algorithm: "PBKDF2WithHmacSHA256"
 
 bookMyFlight:
   openapi:

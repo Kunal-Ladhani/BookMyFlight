@@ -1,15 +1,19 @@
 package com.flight.exception;
 
-public class InvalidCredentialException extends Exception {
+import com.flight.constants.ExceptionCode;
 
-	public InvalidCredentialException() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+public class InvalidCredentialException extends ServiceException {
 
 	public InvalidCredentialException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
+	}
+
+	public InvalidCredentialException(ExceptionCode exceptionCode, String message) {
+		super(exceptionCode, message);
+	}
+
+	public InvalidCredentialException(ExceptionCode exceptionCode, Throwable cause, String message) {
+		super(exceptionCode, cause, message);
 	}
 
 

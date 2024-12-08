@@ -1,22 +1,24 @@
 package com.flight.service;
 
+import com.flight.dto.LoginRequestDto;
+import com.flight.dto.LoginResponseDto;
+import com.flight.dto.LogoutResponseDto;
 import com.flight.dto.request.SignUpRequestDto;
 import com.flight.dto.response.SignUpResponseDto;
+import com.flight.exception.HashingException;
 import com.flight.exception.InvalidCredentialException;
-import com.flight.exception.UserAlreadyExistsException;
-import com.flight.dto.SessionDTO;
+import com.flight.exception.ResourceNotExistsException;
 import com.flight.model.User;
-import com.flight.dto.UserDTO;
 
 public interface AuthenticationService {
 
-	SignUpResponseDto userSignUp(SignUpRequestDto signUpRequestDto) throws Exception;
+	SignUpResponseDto signup(SignUpRequestDto signUpRequestDto) throws Exception;
 
-	SessionDTO userLogin(UserDTO user) throws InvalidCredentialException;
+	LoginResponseDto login(LoginRequestDto user) throws InvalidCredentialException, ResourceNotExistsException, HashingException;
 
-	String userLogout(String authKey) throws InvalidCredentialException;
+	LogoutResponseDto logout(String authKey) throws ResourceNotExistsException;
 
-	boolean updateUser(User user) throws InvalidCredentialException;
+	boolean updateUserDetails(User user) throws InvalidCredentialException;
 
 	// Admin access only
 	User deleteUser(Integer userId, String authKey) throws InvalidCredentialException;

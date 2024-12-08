@@ -1,11 +1,11 @@
 package com.flight.dao;
 
+import com.flight.constants.ExceptionCode;
+import com.flight.exception.ResourceNotExistsException;
 import com.flight.model.User;
 import com.flight.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public class UserDao {
@@ -25,8 +25,9 @@ public class UserDao {
 		return userRepository.save(user);
 	}
 
-	public Optional<User> findByEmail(String email) {
-		return userRepository.findByEmail(email);
+	public User findByEmail(String email) throws ResourceNotExistsException {
+		return userRepository.findByEmail(email)
+				.orElseThrow(() -> new ResourceNotExistsException(ExceptionCode.U102, "User does not exists for email: " + email));
 	}
 
 }

@@ -1,18 +1,21 @@
 package com.flight.repository;
 
-import com.flight.exception.InvalidCredentialException;
-import com.flight.model.CurrentUserLoginSession;
+import com.flight.model.Session;
+import com.flight.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.NonNullApi;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface SessionRepository extends JpaRepository<CurrentUserLoginSession, Integer> {
+public interface SessionRepository extends JpaRepository<Session, Long> {
 
-	Optional<CurrentUserLoginSession> findByUserId(Integer userId) throws InvalidCredentialException;
+	// This will check if a session exists for a specific user
+	boolean existsByUser(User user);
 
-	@Query("select c from CurrentUserLoginSession c where c.authKey=?1")
-	Optional<CurrentUserLoginSession> findByAuthkey(String key);
-}	
+	Optional<Session> findOneByAuthKey(String authKey);
+
+	void delete(@NonNull Session session);
+}

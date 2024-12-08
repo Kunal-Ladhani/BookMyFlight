@@ -1,5 +1,6 @@
 package com.flight.dto;
 
+import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +12,9 @@ import org.hibernate.validator.constraints.Length;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Embeddable
 public class Address {
+
 	@NotBlank
 	private String line1;
 
@@ -31,4 +34,5 @@ public class Address {
 
 	@NotBlank
 	private String country;
+
 }
