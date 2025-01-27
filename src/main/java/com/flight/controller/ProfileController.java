@@ -22,23 +22,23 @@ public class ProfileController {
 
 	// -------------------------------- PROFILE APIs -------------------------------------
 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<> fetchUserDetails(@Valid @RequestBody User user) {
-		return new ResponseEntity<>(authenticationService.fetchDetails(user), HttpStatus.OK);
-	}
-
-	@PatchMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<> updateUserDetails(@Valid @RequestBody User user) {
-		return new ResponseEntity<>(authenticationService.updateDetails(user), HttpStatus.OK);
-	}
-
-	@DeleteMapping()
-	public ResponseEntity<> deleteUser(@RequestParam Integer userid, @RequestHeader("x-auth-key") String authKey) throws InvalidCredentialException {
-		return new ResponseEntity<>(authenticationService.deleteUser(userid, authKey), HttpStatus.OK);
-	}
-
-	@PatchMapping("/assign-admin")
-	public ResponseEntity<> Admin(@RequestParam("email") String email, @RequestParam("code") String passcode) {
-		return new ResponseEntity<>(authenticationService.makeUserAdmin(email, passcode), HttpStatus.OK);
-	}
+//	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<> fetchUserDetails(@Valid @RequestBody User user) {
+//		return new ResponseEntity<>(authenticationService.fetchDetails(user), HttpStatus.OK);
+//	}
+//
+//	@PatchMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<> updateUserDetails(@Valid @RequestBody User user) {
+//		return new ResponseEntity<>(authenticationService.updateDetails(user), HttpStatus.OK);
+//	}
+//
+//	@DeleteMapping()
+//	public ResponseEntity<> deleteUser(@RequestParam Integer userid, @RequestHeader("x-auth-key") String authKey) throws InvalidCredentialException {
+//		return new ResponseEntity<>(authenticationService.deleteUser(userid, authKey), HttpStatus.OK);
+//	}
+//
+//	@PatchMapping("/assign-admin")
+//	public ResponseEntity<> Admin(@RequestParam("email") String email, @RequestParam("code") String passcode) {
+//		return new ResponseEntity<>(authenticationService.makeUserAdmin(email, passcode), HttpStatus.OK);
+//	}
 }

@@ -15,7 +15,7 @@ import com.flight.exception.ResourceNotExistsException;
 import com.flight.model.Session;
 import com.flight.model.User;
 import com.flight.service.AuthenticationService;
-import com.flight.utils.PasswordUtilService;
+import com.flight.utils.CryptoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -28,14 +28,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	private final UserDao userDao;
 	private final SessionDao sessionDao;
-	private final PasswordUtilService passwordUtilService;
+	private final CryptoUtils cryptoUtils;
 
 	public AuthenticationServiceImpl(UserDao userDao,
 									 SessionDao sessionDao,
-									 PasswordUtilService passwordUtilService) {
+									 CryptoUtils cryptoUtils) {
 		this.userDao = userDao;
 		this.sessionDao = sessionDao;
-		this.passwordUtilService = passwordUtilService;
+		this.cryptoUtils = cryptoUtils;
 	}
 
 	private SignUpResponseDto handleSavedUser(String userId) {
@@ -53,8 +53,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			if (userDao.checkUserExistenceByEmailOrMobileNumber(signUpRequestDto.getEmail(), signUpRequestDto.getMobileNumber())) {
 				throw new ResourceAlreadyExistsException(String.format("User already exists with email: %s or mobile number: %s", signUpRequestDto.getEmail(), signUpRequestDto.getMobileNumber()));
 			}
-			String hashedPassword = passwordUtilService.getHash(signUpRequestDto.getPassword());
-			String hashedEmail = passwordUtilService.getHash(signUpRequestDto.getEmail());
+			String hashedPassword = cryptoUtils.getHash(signUpRequestDto.getPassword());
+			String hashedEmail = cryptoUtils.getHash(signUpRequestDto.getEmail());
 			User newUser = User.builder()
 					.userType(UserType.CUSTOMER)
 					.name(signUpRequestDto.getName())
@@ -78,8 +78,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			boolean userSessionExists = sessionDao.existsByUser(user);
 			if (userSessionExists)
 				throw new InvalidCredentialException(String.format("Already session exists for userId: %s", user.getId()));
-			String hashedPassword = passwordUtilService.getHash(loginRequestDto.getPassword());
-			String hashedEmail = passwordUtilService.getHash(loginRequestDto.getEmail());
+			String hashedPassword = cryptoUtils.getHash(loginRequestDto.getPassword());
+			String hashedEmail = cryptoUtils.getHash(loginRequestDto.getEmail());
 			if (!user.getEmailHash().equals(hashedEmail) || !user.getPasswordHash().equals(hashedPassword)) {
 				throw new InvalidCredentialException("Entered credentials are incorrect!");
 			}

@@ -1,7 +1,6 @@
 package com.flight.utils;
 
 import com.flight.exception.HashingException;
-import com.flight.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,7 +13,7 @@ import java.util.Base64;
 
 @Slf4j
 @Component
-public class PasswordUtilService {
+public class CryptoUtils {
 
 	@Value("${security.password.hashing_algorithm}")
 	private String passwordHashingAlgorithm;
@@ -25,13 +24,13 @@ public class PasswordUtilService {
 	@Value("${security.password.key_length}")
 	private Integer keyLength;
 
-	public String getHash(String password) throws HashingException {
+	public String getHash(String data) throws HashingException {
 		try {
 			SecureRandom random = new SecureRandom();
 			byte[] salt = new byte[16];
 			random.nextBytes(salt);
 
-			KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterationCount, keyLength);
+			KeySpec spec = new PBEKeySpec(data.toCharArray(), salt, iterationCount, keyLength);
 			SecretKeyFactory factory = SecretKeyFactory.getInstance(passwordHashingAlgorithm);
 
 			byte[] hash = factory.generateSecret(spec).getEncoded();
