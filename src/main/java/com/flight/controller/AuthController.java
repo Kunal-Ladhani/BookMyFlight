@@ -8,9 +8,9 @@ import com.flight.dto.response.SignUpResponseDto;
 import com.flight.exception.HashingException;
 import com.flight.exception.InvalidCredentialException;
 import com.flight.exception.ResourceNotExistsException;
-import com.flight.model.User;
 import com.flight.service.AuthenticationService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +22,7 @@ public class AuthController {
 
 	private final AuthenticationService authenticationService;
 
+	@Autowired
 	public AuthController(AuthenticationService authenticationService) {
 		this.authenticationService = authenticationService;
 	}

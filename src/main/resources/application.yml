@@ -27,6 +27,11 @@ spring:
     compose:
       enabled: false
 
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: my-group-id
+
 security:
   password:
     key_length: 256
