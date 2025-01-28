@@ -123,7 +123,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>book-my-flight-latest</finalName>
+		<finalName>book-my-flight</finalName>
 	</build>
 
 </project>
